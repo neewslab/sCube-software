@@ -178,26 +178,47 @@ Code Structure:
 Sequence of events executed in cube 𝑖:
 
 A. Initialize the radio and accelerometer. Set the input/output pins
+
 B. Turn On the Blue LED after the required modules are initialized
+
 C. Wait till it receives any POLL from the base station
+
 D. When a cube 𝑖 receives a ‘Poll’ from the base station:
+
     1. Checks if the received poll is for itself
+    
     2. If the poll is for itself:
+    
           i. Sends a poll response to the base station with the following information:
+          
                 Own cube ID
+                
                 Destination (Base station ID)
+                
                 Flag indicating that it is a poll response 
+                
                 Table with the information received via all its NFMI coils
+                
                 Accelerometer readings along 3-axes
+                
                 Battery charge
+                
                 Time elapsed from the poll; time elapsed from the start of the cube
+          
           ii. Put the NFMI interface in the transmit mode
+          
           iii. Sends NFMI signals along all the 6 faces in a TDMA manner
+    
     3. Else (poll is for some other cubes):
+    
           i. Put the NFMI interfaces in receiving mode
+          
           ii. Listens across all its 6 faces in a TDMA manner
+          
           iii. If there is any signal received across any of its faces:
+          
                 Save the face id through which it received signal and the timestamp
+                
                 Update the table entry (Face ID of cube 𝑖, Neighboring cube ID, Neighboring cube’s face ID)
 
 Arduino Library List:
